@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 
@@ -28,6 +29,13 @@ public class GameManager : MonoBehaviour
     private string firstMatchCard, secondMatchCard;
     
     public GameObject gameWinPanel;
+    public GameObject gameLossPanel;
+    public TMP_Text GameScore;
+    public TMP_Text GameTimer;
+    public TMP_Text gameScoreTxt;
+    public int GameScoreCount;
+    public bool TimerRunning=true;
+    public float Timer;
 
      void Start()
     {
@@ -36,6 +44,7 @@ public class GameManager : MonoBehaviour
         AddCards();
         Shuffle(gameCards);
         Matches=gameCards.Count/2;
+         Time.timeScale=1;
 
         }
 
@@ -97,6 +106,7 @@ public class GameManager : MonoBehaviour
             if(firstMatchCard==secondMatchCard)
             {
                 print("card match");
+                GameScoreCount++;
             }
             else{
                 print("card not match");
@@ -113,7 +123,8 @@ public class GameManager : MonoBehaviour
             {
            // btns[firstMatchIndex].interactable=false;
            // btns[secondMatchIndex].interactable=false;
-                GameFinish();
+           GameScore.text="SCORES:"+ GameScoreCount;
+            GameFinish();
             }
             else
             {
@@ -129,9 +140,33 @@ public class GameManager : MonoBehaviour
         if(countCorrectMatches == Matches)
         {
             print("game win");
+            Time.timeScale=0;
             gameWinPanel.SetActive(true);
+            gameScoreTxt.text=GameScore.text;
             print("took"+countCorrectMatches+ countMatches);
         }
+   }
+   void Update()
+   {
+          if(TimerRunning)
+          {
+          if(Timer>0)
+          {
+                Timer -= Time.deltaTime;
+                int timerInt = (int)Timer;
+                GameTimer.text= "TIME:" + timerInt.ToString();
+           }
+          else
+          {
+                Timer=0;
+                TimerRunning=false;
+                gameLossPanel.SetActive(true);
+               // gameScoreTxt.text=GameScore.text;
+
+                print ("time up");
+          }
+          }
+          
    }
    public void NextBtn()
    {
