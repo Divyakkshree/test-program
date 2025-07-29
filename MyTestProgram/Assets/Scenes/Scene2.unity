@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardPanel: {fileID: 224690932}
   Card: {fileID: 1444094594437496804, guid: d7b01efe4ac4f174897b3ed4799cd865, type: 3}
-  totalCards: 6
+  totalCards: 8
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
