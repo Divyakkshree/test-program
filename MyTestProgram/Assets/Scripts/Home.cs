@@ -11,6 +11,7 @@ public class Home : MonoBehaviour
     {
         
     }
+   
     public void GetNextScene()
     {
         SceneManager.LoadScene("Scene1");

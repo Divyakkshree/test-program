@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
     public void PickCard()
     {
         string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+
+        
         print("hey"+name);
          if(!firstMatch)
         {
@@ -95,14 +97,15 @@ public class GameManager : MonoBehaviour
             firstMatchIndex=int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             firstMatchCard=gameCards[firstMatchIndex].name;
             btns[firstMatchIndex].image.sprite=gameCards[firstMatchIndex];
+            
         }
         else if(!secondMatch){
         
             secondMatch=true;
             secondMatchIndex=int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
-                        secondMatchCard=gameCards[secondMatchIndex].name;
-
+            secondMatchCard=gameCards[secondMatchIndex].name;
             btns[secondMatchIndex].image.sprite=gameCards[secondMatchIndex];
+           
             if(firstMatchCard==secondMatchCard)
             {
                 print("card match");
@@ -136,11 +139,15 @@ public class GameManager : MonoBehaviour
         }
    public void GameFinish()
    {
+        
+
         countCorrectMatches++;
         if(countCorrectMatches == Matches)
         {
             print("game win");
             Time.timeScale=0;
+            PlayerPrefs.SetInt("UnlockedLevel",(SceneManager.GetActiveScene().buildIndex));
+        print(SceneManager.GetActiveScene().buildIndex);
             gameWinPanel.SetActive(true);
             gameScoreTxt.text=GameScore.text;
             print("took"+countCorrectMatches+ countMatches);
