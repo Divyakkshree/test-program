@@ -261,8 +261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 22.217102}
-  m_SizeDelta: {x: 0, y: -488.7768}
+  m_AnchoredPosition: {x: -1, y: 10.771301}
+  m_SizeDelta: {x: -402.2912, y: -645.7485}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224690933
 MonoBehaviour:
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 50, y: 50}
   m_Spacing: {x: 5, y: 5}
-  m_Constraint: 2
+  m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &345255314
 GameObject:
@@ -654,7 +654,7 @@ MonoBehaviour:
   ScoreTxt: {fileID: 1856388703}
   GameScoreCount: 0
   TimerRunning: 1
-  Timer: 40
+  Timer: 30
   CardFlipAnim: {fileID: 2196241549988814274, guid: 4f67d3c267639a14889003f42d5ffefd, type: 3}
   audioSource: {fileID: 544257731}
   Flip: {fileID: 8300000, guid: 3c73d643314012f44b8fafed173fc70e, type: 3}
@@ -676,7 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardPanel: {fileID: 224690932}
   Card: {fileID: 6025974257121022582, guid: 4f67d3c267639a14889003f42d5ffefd, type: 3}
-  totalCards: 6
+  totalCards: 12
 --- !u!82 &544257731
 AudioSource:
   m_ObjectHideFlags: 0

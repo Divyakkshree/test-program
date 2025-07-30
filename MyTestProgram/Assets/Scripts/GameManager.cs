@@ -33,9 +33,16 @@ public class GameManager : MonoBehaviour
     public TMP_Text GameScore;
     public TMP_Text GameTimer;
     public TMP_Text gameScoreTxt;
+    public TMP_Text ScoreTxt;
     public int GameScoreCount;
     public bool TimerRunning=true;
     public float Timer;
+
+
+
+    public AudioSource audioSource;
+    public AudioClip Flip,MatchClip, NotMatchClip, GameWinsound, GameLossSound;
+
 
      void Start()
     {
@@ -45,10 +52,10 @@ public class GameManager : MonoBehaviour
         Shuffle(gameCards);
         Matches=gameCards.Count/2;
          Time.timeScale=1;
-
+         
         }
 
-
+      
      private void Awake()
     {
         Cards =Resources.LoadAll<Sprite>("Images/Cards");
@@ -87,16 +94,19 @@ public class GameManager : MonoBehaviour
     }
     public void PickCard()
     {
-        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-
         
-        print("hey"+name);
+        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+        audioSource.clip=Flip;
+        audioSource.Play();
+       
+        //print("hey"+name);
          if(!firstMatch)
         {
             firstMatch=true;
             firstMatchIndex=int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
-            firstMatchCard=gameCards[firstMatchIndex].name;
+            firstMatchCard=gameCards[firstMatchIndex].name;     
             btns[firstMatchIndex].image.sprite=gameCards[firstMatchIndex];
+
             
         }
         else if(!secondMatch){
@@ -104,19 +114,23 @@ public class GameManager : MonoBehaviour
             secondMatch=true;
             secondMatchIndex=int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
             secondMatchCard=gameCards[secondMatchIndex].name;
+
             btns[secondMatchIndex].image.sprite=gameCards[secondMatchIndex];
            
             if(firstMatchCard==secondMatchCard)
             {
                 print("card match");
+                audioSource.clip=MatchClip;
+                audioSource.Play();
                 GameScoreCount++;
             }
             else{
                 print("card not match");
+                audioSource.clip=NotMatchClip;
+                audioSource.Play();
             }
-                        StartCoroutine(checkCardMatch());
+             StartCoroutine(checkCardMatch());
 
-                      //  Matches++;
                       }
     }
      IEnumerator checkCardMatch()
@@ -131,12 +145,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+
                 btns[firstMatchIndex].image.sprite=bgImage;
                 btns[secondMatchIndex].image.sprite=bgImage;
             }
              firstMatch=secondMatch=false;
 
         }
+        
    public void GameFinish()
    {
         
@@ -147,10 +163,11 @@ public class GameManager : MonoBehaviour
             print("game win");
             Time.timeScale=0;
             PlayerPrefs.SetInt("UnlockedLevel",(SceneManager.GetActiveScene().buildIndex));
-        print(SceneManager.GetActiveScene().buildIndex);
+            //print(SceneManager.GetActiveScene().buildIndex);
             gameWinPanel.SetActive(true);
+             audioSource.clip=GameWinsound;
+                audioSource.Play();
             gameScoreTxt.text=GameScore.text;
-            print("took"+countCorrectMatches+ countMatches);
         }
    }
    void Update()
@@ -168,7 +185,9 @@ public class GameManager : MonoBehaviour
                 Timer=0;
                 TimerRunning=false;
                 gameLossPanel.SetActive(true);
-               // gameScoreTxt.text=GameScore.text;
+                 audioSource.clip=GameLossSound;
+                audioSource.Play();
+                ScoreTxt.text=GameScore.text;
 
                 print ("time up");
           }
